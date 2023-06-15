@@ -33,4 +33,22 @@ function GameBoard() {
   };
 }
 
-GameBoard();
+function GameController() {
+  //players
+  const players = [
+    { name: "player1", token: "X" },
+    { name: "player2", token: "O" },
+  ];
+  //const currentPlayer
+  let currentPlayer = players[0];
+
+  const switchCurrentPlayer = () =>
+    (currentPlayer =
+      currentPlayer.name == players[0].name ? players[1] : players[0]);
+  //playRound
+  //switchCurrentPlayer
+
+  //
+}
+
+GameController();
