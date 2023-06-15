@@ -17,6 +17,14 @@ function GameBoard() {
 
   const getBoard = () => board;
 
+  const dropToken = (column) => {
+    const availableRows = board.filter(
+      (row) => row[column].getToken() === null
+    );
+    if (availableRows.length === 0) return;
+    board[availableRows.length - 1][column].addToken("1");
+  };
+
   const printBoard = () => {
     //helper function for printing the board
     board.forEach((row) => {
@@ -24,3 +32,5 @@ function GameBoard() {
     });
   };
 }
+
+GameBoard();
