@@ -54,3 +54,11 @@ body {
   justify-content: center;
   border-radius: 50%;
 }
+
+.cell.p1 {
+  background-color: var(--p1-token);
+}
+
+.cell.p2 {
+  background-color: var(--p2-token);
+}
