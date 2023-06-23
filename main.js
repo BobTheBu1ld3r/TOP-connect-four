@@ -56,7 +56,14 @@ function GameController() {
     switchCurrentPlayer();
   };
 
-  return { playRound, printBoard: board.printBoard, getBoard: board.getBoard };
+  const getCurrentPlayer = () => currentPlayer;
+
+  return {
+    playRound,
+    getCurrentPlayer,
+    printBoard: board.printBoard,
+    getBoard: board.getBoard,
+  };
 }
 
 // responsible for displaying the game state to the user
@@ -65,7 +72,13 @@ function ScreenController() {
   const gameBoard = document.querySelector(".game-board");
 
   const update = () => {
+    const currentPlayerDisplay = document.querySelector(".current-player");
+    const currentPlayer = game.getCurrentPlayer();
+
+    currentPlayerDisplay.textContent = `The current player is: ${currentPlayer.name}`;
+
     const board = game.getBoard();
+
     gameBoard.textContent = "";
     board.forEach((row) =>
       row.forEach((cell, index) => {
@@ -80,8 +93,5 @@ function ScreenController() {
   update();
   game.playRound(0);
   update();
-  game.playRound(0);
-  update();
-  game.playRound(0);
 }
 ScreenController();
