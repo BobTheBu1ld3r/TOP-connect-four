@@ -91,7 +91,16 @@ function ScreenController() {
       })
     );
   };
+
+  function clickHandlerBoard(e) {
+    const column = e.target.dataset.column;
+    if (!column) return;
+    game.playRound(column);
+    update();
+  }
+
+  gameBoard.addEventListener("click", clickHandlerBoard);
+
   update();
-  function clickHandlerBoard(e) {}
 }
 ScreenController();
