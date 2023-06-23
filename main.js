@@ -91,20 +91,26 @@ function ScreenController() {
         console.log(cell.getToken());
         if (cell.getToken() == "X") newCell.classList.add("p1");
         if (cell.getToken() == "O") newCell.classList.add("p2");
+        newCell.addEventListener("mouseover", cellHoverHandler);
+        newCell.addEventListener("click", clickHandlerCell);
         gameBoard.appendChild(newCell);
       })
     );
   };
 
-  function clickHandlerBoard(e) {
-    const column =
-      e.target.dataset.column || e.target.parentNode.dataset.column;
+  function cellHoverHandler(e) {
+    const colNum = e.currentTarget.dataset.column;
+    Array.from(
+      document.querySelectorAll(`.cell[data-column="${colNum}"`)
+    ).forEach((cell) => (cell.style.backgroundColor = "red"));
+  }
+
+  function clickHandlerCell(e) {
+    const column = e.currentTarget.dataset.column; //|| e.target.parentNode.dataset.column;
     if (!column) return;
     game.playRound(column);
     update();
   }
-
-  gameBoard.addEventListener("click", clickHandlerBoard);
 
   update();
 }
