@@ -84,6 +84,7 @@ function ScreenController() {
       row.forEach((cell, index) => {
         const newCell = document.createElement("button");
         newCell.classList.add("cell");
+        newCell.dataset.column = index;
         console.log(cell.getToken());
         newCell.textContent = cell.getToken();
         gameBoard.appendChild(newCell);
@@ -91,7 +92,6 @@ function ScreenController() {
     );
   };
   update();
-  game.playRound(0);
-  update();
+  function clickHandlerBoard(e) {}
 }
 ScreenController();
