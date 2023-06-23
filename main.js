@@ -91,22 +91,27 @@ function ScreenController() {
         console.log(cell.getToken());
         if (cell.getToken() == "X") newCell.classList.add("p1");
         if (cell.getToken() == "O") newCell.classList.add("p2");
-        newCell.addEventListener("mouseover", cellHoverHandler);
+        newCell.addEventListener("mouseenter", cellEnterHandler);
         newCell.addEventListener("click", clickHandlerCell);
         gameBoard.appendChild(newCell);
       })
     );
   };
 
-  function cellHoverHandler(e) {
+  function cellEnterHandler(e) {
     const colNum = e.currentTarget.dataset.column;
+
+    if (e.currentTarget.isEqualNode(e.relatedTarget)) return; // if mouse is entering from over circle element then ignore
     Array.from(
-      document.querySelectorAll(`.cell[data-column="${colNum}"`)
-    ).forEach((cell) => (cell.style.backgroundColor = "red"));
+      document.querySelectorAll(`.cell[data-column="${colNum}"]`)
+    ).forEach((cell) => cell.classList.add("hover"));
+    Array.from(
+      document.querySelectorAll(`.cell:not([data-column="${colNum}"])`)
+    ).forEach((cell) => cell.classList.remove("hover"));
   }
 
   function clickHandlerCell(e) {
-    const column = e.currentTarget.dataset.column; //|| e.target.parentNode.dataset.column;
+    const column = e.currentTarget.dataset.column;
     if (!column) return;
     game.playRound(column);
     update();
