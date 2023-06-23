@@ -68,6 +68,6 @@ body {
   background-color: var(--p2-token);
 }
 
-.hover {
+.cell.hover {
   background-color: #2c3e50;
 }
