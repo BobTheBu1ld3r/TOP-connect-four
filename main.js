@@ -84,6 +84,8 @@ function ScreenController() {
     board.forEach((row) =>
       row.forEach((cell, index) => {
         const newCell = document.createElement("button");
+        const newCircle = document.createElement("div");
+        newCell.appendChild(newCircle);
         newCell.classList.add("cell");
         newCell.dataset.column = index;
         console.log(cell.getToken());
@@ -95,7 +97,8 @@ function ScreenController() {
   };
 
   function clickHandlerBoard(e) {
-    const column = e.target.dataset.column;
+    const column =
+      e.target.dataset.column || e.target.parentNode.dataset.column;
     if (!column) return;
     game.playRound(column);
     update();

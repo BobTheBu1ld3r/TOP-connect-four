@@ -38,27 +38,32 @@ body {
 .game-board {
   display: grid;
   background-color: var(--primary);
-  grid-template-columns: repeat(7, 56px);
-  grid-template-rows: repeat(6, 56px);
-  column-gap: 29px;
-  row-gap: 23px;
+  grid-template-columns: repeat(7, 70px);
+  grid-template-rows: repeat(6, 70px);
   border-radius: 32px;
   padding: 15px;
 }
 
 .cell {
   border: none;
-  background-color: var(--background);
+  background-color: var(--primary);
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
+  padding: 10px;
 }
 
-.cell.p1 {
+.cell > * {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-color: var(--background);
+}
+
+.cell.p1 > * {
   background-color: var(--p1-token);
 }
 
-.cell.p2 {
+.cell.p2 > * {
   background-color: var(--p2-token);
 }
