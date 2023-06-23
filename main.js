@@ -17,12 +17,12 @@ function GameBoard() {
 
   const getBoard = () => board;
 
-  const dropToken = (column) => {
+  const dropToken = (column, currentPlayer) => {
     const availableRows = board.filter(
       (row) => row[column].getToken() === null
     );
     if (availableRows.length === 0) return;
-    board[availableRows.length - 1][column].addToken("1");
+    board[availableRows.length - 1][column].addToken(currentPlayer.token);
   };
 
   const printBoard = () => {
@@ -31,6 +31,8 @@ function GameBoard() {
       console.log(row.map((cell) => cell.getToken()));
     });
   };
+
+  return { getBoard, dropToken, printBoard };
 }
 
 function GameController() {
@@ -42,13 +44,17 @@ function GameController() {
   //const currentPlayer
   let currentPlayer = players[0];
 
+  const board = GameBoard();
+
   const switchCurrentPlayer = () =>
     (currentPlayer =
       currentPlayer.name == players[0].name ? players[1] : players[0]);
   //playRound
-  //switchCurrentPlayer
 
-  //
+  const playRound = (column) => {
+    board.dropToken(column, currentPlayer);
+    switchCurrentPlayer();
+  };
+
+  return { playRound, printBoard: board.printBoard };
 }
-
-GameController();
