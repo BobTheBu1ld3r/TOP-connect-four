@@ -21,7 +21,7 @@ function GameBoard() {
     const availableRows = board.filter(
       (row) => row[column].getToken() === null
     );
-    if (availableRows.length === 0) return;
+    if (availableRows.length === 0) return true;
     board[availableRows.length - 1][column].addToken(currentPlayer.token);
   };
 
@@ -52,7 +52,8 @@ function GameController() {
   //playRound
 
   const playRound = (column) => {
-    board.dropToken(column, currentPlayer);
+    const invalidColumn = board.dropToken(column, currentPlayer);
+    if (invalidColumn) return;
     switchCurrentPlayer();
   };
 
