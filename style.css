@@ -1,5 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&family=Work+Sans:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap");
+
 html {
   box-sizing: border-box;
+  --p1-token: #18bc9c;
+  --p2-token: #ee6677;
+  --primary: #273849;
+  --background: #101b27;
 }
 
 *,
@@ -13,6 +19,7 @@ body {
   padding: 0;
   width: 100vw;
   height: 100vh;
+  background-color: var(--background);
 
   display: flex;
   flex-direction: column;
@@ -22,24 +29,28 @@ body {
 }
 
 .current-player {
-  font-size: 16px;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  font-size: 24px;
+  font-family: "Work sans", sans-serif;
+  font-weight: 700;
+  color: white;
 }
 
 .game-board {
   display: grid;
-  grid-template-columns: repeat(7, 70px);
-  grid-template-rows: repeat(6, 70px);
-  gap: 2px;
-  border: 2px solid red;
+  background-color: var(--primary);
+  grid-template-columns: repeat(7, 56px);
+  grid-template-rows: repeat(6, 56px);
+  column-gap: 29px;
+  row-gap: 23px;
+  border-radius: 32px;
+  padding: 15px;
 }
 
 .cell {
   border: none;
-  background-color: none;
-  border: 1px solid black;
+  background-color: var(--background);
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 50%;
 }
