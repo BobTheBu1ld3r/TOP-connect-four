@@ -56,5 +56,32 @@ function GameController() {
     switchCurrentPlayer();
   };
 
-  return { playRound, printBoard: board.printBoard };
+  return { playRound, printBoard: board.printBoard, getBoard: board.getBoard };
 }
+
+// responsible for displaying the game state to the user
+function ScreenController() {
+  const game = GameController();
+  const gameBoard = document.querySelector(".game-board");
+
+  const update = () => {
+    const board = game.getBoard();
+    gameBoard.textContent = "";
+    board.forEach((row) =>
+      row.forEach((cell, index) => {
+        const newCell = document.createElement("button");
+        newCell.classList.add("cell");
+        console.log(cell.getToken());
+        newCell.textContent = cell.getToken();
+        gameBoard.appendChild(newCell);
+      })
+    );
+  };
+  update();
+  game.playRound(0);
+  update();
+  game.playRound(0);
+  update();
+  game.playRound(0);
+}
+ScreenController();
