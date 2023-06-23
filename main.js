@@ -38,8 +38,8 @@ function GameBoard() {
 function GameController() {
   //players
   const players = [
-    { name: "player1", token: "X" },
-    { name: "player2", token: "O" },
+    { name: "Player One", token: "X" },
+    { name: "Player Two", token: "O" },
   ];
   //const currentPlayer
   let currentPlayer = players[0];
@@ -76,7 +76,7 @@ function ScreenController() {
     const currentPlayerDisplay = document.querySelector(".current-player");
     const currentPlayer = game.getCurrentPlayer();
 
-    currentPlayerDisplay.textContent = `The current player is: ${currentPlayer.name}`;
+    currentPlayerDisplay.textContent = `${currentPlayer.name}'s turn`;
 
     const board = game.getBoard();
 
@@ -87,7 +87,8 @@ function ScreenController() {
         newCell.classList.add("cell");
         newCell.dataset.column = index;
         console.log(cell.getToken());
-        newCell.textContent = cell.getToken();
+        if (cell.getToken() == "X") newCell.classList.add("p1");
+        if (cell.getToken() == "O") newCell.classList.add("p2");
         gameBoard.appendChild(newCell);
       })
     );
