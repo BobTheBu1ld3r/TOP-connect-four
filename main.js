@@ -35,6 +35,37 @@ function GameBoard() {
   return { getBoard, dropToken, printBoard };
 }
 
+function WinChecker(board) {
+  let tokenBoard;
+
+  const fourInARow = (row, token) => {
+    return tokenBoard[row].join("").includes(token.repeat(4));
+  };
+
+  const fourInAColumn = (column, token) => {
+    return tokenBoard
+      .map((row) => row[column])
+      .join("")
+      .includes("XXXX");
+  };
+
+  const isWin = (column) => {
+    tokenBoard = board
+      .getBoard()
+      .map((row) => row.map((cell) => cell.getToken()));
+
+    const row = tokenBoard.map((row) => row[column]).lastIndexOf(null) + 1;
+    console.log(row);
+
+    winner = fourInAColumn(column) || fourInARow(row);
+    return winner;
+  };
+
+  return {
+    isWin,
+  };
+}
+
 function GameController() {
   //players
   const players = [
