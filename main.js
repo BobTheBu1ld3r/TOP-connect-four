@@ -8,12 +8,14 @@ function Cell() {
 function GameBoard() {
   const board = [];
 
-  for (let i = 0; i < 6; i++) {
-    board[i] = [];
-    for (let j = 0; j < 7; j++) {
-      board[i][j] = Cell();
+  const initialize = () => {
+    for (let i = 0; i < 6; i++) {
+      board[i] = [];
+      for (let j = 0; j < 7; j++) {
+        board[i][j] = Cell();
+      }
     }
-  }
+  };
 
   const getBoard = () => board;
 
@@ -32,7 +34,7 @@ function GameBoard() {
     });
   };
 
-  return { getBoard, dropToken, printBoard };
+  return { getBoard, dropToken, printBoard, initialize };
 }
 
 function WinChecker(board) {
@@ -75,6 +77,7 @@ function GameController() {
   let currentPlayer = players[0];
 
   const board = GameBoard();
+  board.initialize();
 
   const winChecker = WinChecker(board);
 
@@ -86,8 +89,10 @@ function GameController() {
   const playRound = (column) => {
     const invalidColumn = board.dropToken(column, currentPlayer);
     if (invalidColumn) return;
-    if (winChecker.isWin(column, currentPlayer.token))
+    if (winChecker.isWin(column, currentPlayer.token)) {
       console.log(`${currentPlayer.name} has won!`);
+      board.initialize();
+    }
     switchCurrentPlayer();
   };
 
@@ -98,6 +103,7 @@ function GameController() {
     getCurrentPlayer,
     printBoard: board.printBoard,
     getBoard: board.getBoard,
+    initialize: board.initialize,
   };
 }
 
