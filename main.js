@@ -49,7 +49,7 @@ function WinChecker(board) {
       .includes("XXXX");
   };
 
-  const isWin = (column) => {
+  const isWin = (column, token) => {
     tokenBoard = board
       .getBoard()
       .map((row) => row.map((cell) => cell.getToken()));
@@ -57,7 +57,7 @@ function WinChecker(board) {
     const row = tokenBoard.map((row) => row[column]).lastIndexOf(null) + 1;
     console.log(row);
 
-    winner = fourInAColumn(column) || fourInARow(row);
+    winner = fourInAColumn(column, token) || fourInARow(row, token);
     return winner;
   };
 
@@ -77,6 +77,8 @@ function GameController() {
 
   const board = GameBoard();
 
+  const winChecker = WinChecker(board);
+
   const switchCurrentPlayer = () =>
     (currentPlayer =
       currentPlayer.name == players[0].name ? players[1] : players[0]);
@@ -85,6 +87,8 @@ function GameController() {
   const playRound = (column) => {
     const invalidColumn = board.dropToken(column, currentPlayer);
     if (invalidColumn) return;
+    if (winChecker.isWin(column, currentPlayer.token))
+      console.log(`${currentPlayer.name} has won!`);
     switchCurrentPlayer();
   };
 
