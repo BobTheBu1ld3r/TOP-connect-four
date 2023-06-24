@@ -55,7 +55,6 @@ function WinChecker(board) {
       .map((row) => row.map((cell) => cell.getToken()));
 
     const row = tokenBoard.map((row) => row[column]).lastIndexOf(null) + 1;
-    console.log(row);
 
     winner = fourInAColumn(column, token) || fourInARow(row, token);
     return winner;
@@ -123,7 +122,6 @@ function ScreenController() {
         newCell.appendChild(newCircle);
         newCell.classList.add("cell");
         newCell.dataset.column = index;
-        console.log(cell.getToken());
         if (cell.getToken() == "X") newCell.classList.add("p1");
         if (cell.getToken() == "O") newCell.classList.add("p2");
         newCell.addEventListener("mouseenter", cellEnterHandler);
