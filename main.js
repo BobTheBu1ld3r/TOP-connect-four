@@ -91,10 +91,14 @@ function GameController() {
     if (invalidColumn) return;
     if (winChecker.isWin(column, currentPlayer.token)) {
       console.log(`${currentPlayer.name} has won!`);
-      board.initialize();
-    }
-    switchCurrentPlayer();
+      reset();
+    } else switchCurrentPlayer();
   };
+
+  function reset() {
+    currentPlayer = players[0];
+    board.initialize();
+  }
 
   const getCurrentPlayer = () => currentPlayer;
 
