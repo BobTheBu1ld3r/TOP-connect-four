@@ -81,6 +81,8 @@ function GameController() {
 
   const winChecker = WinChecker(board);
 
+  let winner = null;
+
   const switchCurrentPlayer = () =>
     (currentPlayer =
       currentPlayer.name == players[0].name ? players[1] : players[0]);
@@ -94,6 +96,8 @@ function GameController() {
       reset();
     } else switchCurrentPlayer();
   };
+
+  const isWin = () => winner;
 
   function reset() {
     currentPlayer = players[0];
