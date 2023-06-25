@@ -101,6 +101,7 @@ function GameController() {
 
   function reset() {
     currentPlayer = players[0];
+    winner = null;
     board.initialize();
   }
 
