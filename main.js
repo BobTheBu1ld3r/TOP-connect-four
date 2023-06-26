@@ -114,6 +114,7 @@ function GameController() {
     printBoard: board.printBoard,
     getBoard: board.getBoard,
     initialize: board.initialize,
+    isWin,
   };
 }
 
@@ -124,11 +125,19 @@ function ScreenController() {
 
   const update = () => {
     const currentPlayerDisplay = document.querySelector(".current-player");
+    const winOverlay = document.querySelector(".win-overlay");
+    const winMessage = document.querySelector(".win-message");
     const currentPlayer = game.getCurrentPlayer();
 
     currentPlayerDisplay.textContent = `${currentPlayer.name}'s turn`;
 
     const board = game.getBoard();
+
+    if (game.isWin()) {
+      winOverlay.classList.remove("invisible");
+      winOverlay.classList.add("visible");
+      winMessage.textContent = `${game.isWin().name} won!`;
+    }
 
     gameBoard.textContent = "";
     board.forEach((row) =>
