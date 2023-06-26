@@ -122,21 +122,27 @@ function GameController() {
 function ScreenController() {
   const game = GameController();
   const gameBoard = document.querySelector(".game-board");
+  const winOverlay = document.querySelector(".win-overlay");
+  const winMessage = document.querySelector(".win-message");
+  const restartButton = document.querySelector(".restart");
+  restartButton.addEventListener("click", clickHandlerOverlay);
 
-  const update = () => {
+  const update = (winTriggered) => {
     const currentPlayerDisplay = document.querySelector(".current-player");
-    const winOverlay = document.querySelector(".win-overlay");
-    const winMessage = document.querySelector(".win-message");
     const currentPlayer = game.getCurrentPlayer();
 
     currentPlayerDisplay.textContent = `${currentPlayer.name}'s turn`;
 
     const board = game.getBoard();
 
-    if (game.isWin()) {
+    console.log(winOverlay.className.includes("invisible"));
+
+    if (winTriggered && game.isWin()) {
       winOverlay.classList.remove("invisible");
       winOverlay.classList.add("visible");
       winMessage.textContent = `${game.isWin().name} won!`;
+      console.log(winOverlay.className.includes("invisible"));
+      console.log(winOverlay.className);
     }
 
     gameBoard.textContent = "";
@@ -172,6 +178,19 @@ function ScreenController() {
     const column = e.currentTarget.dataset.column;
     if (!column) return;
     game.playRound(column);
+    update(true);
+  }
+
+  function clickHandlerOverlay(e) {
+    console.log("clicked");
+    console.log(winOverlay.className);
+
+    winOverlay.classList.remove("visible");
+    winOverlay.classList.add("invisible");
+
+    console.log(winOverlay.className);
+    winMessage.textContent = "";
+
     update();
   }
 
