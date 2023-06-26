@@ -110,7 +110,6 @@ function GameController() {
   return {
     playRound,
     getCurrentPlayer,
-    printBoard: board.printBoard,
     getBoard: board.getBoard,
     initialize: board.initialize,
     isWin,
