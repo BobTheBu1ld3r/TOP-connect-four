@@ -91,8 +91,7 @@ function GameController() {
   const playRound = (column) => {
     const invalidColumn = board.dropToken(column, currentPlayer);
     if (invalidColumn) return;
-    if (winner) reset();
-    else if (winChecker.isWin(column, currentPlayer.token)) {
+    if (winChecker.isWin(column, currentPlayer.token)) {
       console.log(`${currentPlayer.name} has won!`);
       winner = currentPlayer;
     } else switchCurrentPlayer();
@@ -115,6 +114,7 @@ function GameController() {
     getBoard: board.getBoard,
     initialize: board.initialize,
     isWin,
+    reset,
   };
 }
 
@@ -190,7 +190,7 @@ function ScreenController() {
 
     console.log(winOverlay.className);
     winMessage.textContent = "";
-
+    game.reset();
     update();
   }
 
