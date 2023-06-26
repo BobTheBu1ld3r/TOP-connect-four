@@ -103,7 +103,6 @@ button.restart {
   font-weight: 900;
   letter-spacing: 1px;
   text-transform: uppercase;
-  pointer-events: none;
 }
 
 .win-overlay.visible {
