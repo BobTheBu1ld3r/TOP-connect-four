@@ -48,7 +48,7 @@ function WinChecker(board) {
     return tokenBoard
       .map((row) => row[column])
       .join("")
-      .includes("XXXX");
+      .includes(token.repeat(4));
   };
 
   const isWin = (column, token) => {
@@ -91,9 +91,10 @@ function GameController() {
   const playRound = (column) => {
     const invalidColumn = board.dropToken(column, currentPlayer);
     if (invalidColumn) return;
-    if (winChecker.isWin(column, currentPlayer.token)) {
+    if (winner) reset();
+    else if (winChecker.isWin(column, currentPlayer.token)) {
       console.log(`${currentPlayer.name} has won!`);
-      reset();
+      winner = currentPlayer;
     } else switchCurrentPlayer();
   };
 
