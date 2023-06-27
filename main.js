@@ -51,6 +51,63 @@ function WinChecker(board) {
       .includes(token.repeat(4));
   };
 
+  const fourInADiagonal = (column, row, token) => {
+    tokenBoard = board
+      .getBoard()
+      .map((row) => row.map((cell) => cell.getToken()));
+    const upDiagonal = [tokenBoard[row][column]];
+
+    let c = column;
+    let r = row;
+    c--;
+    r++;
+    while (c >= 0 && r <= 5) {
+      upDiagonal.unshift(tokenBoard[r][c]);
+      c--;
+      r++;
+    }
+
+    c = column;
+    r = row;
+    c++;
+    r--;
+    while (c <= 6 && r >= 0) {
+      upDiagonal.push(tokenBoard[r][c]);
+      c++;
+      r--;
+    }
+
+    const downDiagonal = [tokenBoard[row][column]];
+
+    c = column;
+    r = row;
+    c++;
+    r++;
+    while (c <= 6 && r <= 5) {
+      downDiagonal.push(tokenBoard[r][c]);
+      c++;
+      r++;
+    }
+
+    c = column;
+    r = row;
+    c--;
+    r--;
+    while (c >= 0 && r >= 0) {
+      downDiagonal.unshift(tokenBoard[r][c]);
+      c--;
+      r--;
+    }
+
+    console.log(upDiagonal);
+    console.log(downDiagonal);
+
+    return (
+      upDiagonal.join("").includes(token.repeat(4)) ||
+      downDiagonal.join("").includes(token.repeat(4))
+    );
+  };
+
   const isWin = (column, token) => {
     tokenBoard = board
       .getBoard()
@@ -58,12 +115,17 @@ function WinChecker(board) {
 
     const row = tokenBoard.map((row) => row[column]).lastIndexOf(null) + 1;
 
-    winner = fourInAColumn(column, token) || fourInARow(row, token);
+    winner =
+      fourInAColumn(column, token) ||
+      fourInARow(row, token) ||
+      fourInADiagonal(column, row, token);
+    console.log(winner);
     return winner;
   };
 
   return {
     isWin,
+    fourInADiagonal,
   };
 }
 
@@ -134,14 +196,10 @@ function ScreenController() {
 
     const board = game.getBoard();
 
-    console.log(winOverlay.className.includes("invisible"));
-
     if (winTriggered && game.isWin()) {
       winOverlay.classList.remove("invisible");
       winOverlay.classList.add("visible");
       winMessage.textContent = `${game.isWin().name} won!`;
-      console.log(winOverlay.className.includes("invisible"));
-      console.log(winOverlay.className);
     }
 
     gameBoard.textContent = "";
@@ -181,13 +239,9 @@ function ScreenController() {
   }
 
   function clickHandlerOverlay(e) {
-    console.log("clicked");
-    console.log(winOverlay.className);
-
     winOverlay.classList.remove("visible");
     winOverlay.classList.add("invisible");
 
-    console.log(winOverlay.className);
     winMessage.textContent = "";
     game.reset();
     update();
