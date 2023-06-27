@@ -1,5 +1,5 @@
 function Cell() {
-  let value = null;
+  let value = " ";
   const addToken = (playerToken) => (value = playerToken);
   const getToken = () => value;
   return { addToken, getToken };
@@ -20,9 +20,7 @@ function GameBoard() {
   const getBoard = () => board;
 
   const dropToken = (column, currentPlayer) => {
-    const availableRows = board.filter(
-      (row) => row[column].getToken() === null
-    );
+    const availableRows = board.filter((row) => row[column].getToken() === " ");
     if (availableRows.length === 0) return true;
     board[availableRows.length - 1][column].addToken(currentPlayer.token);
   };
@@ -41,6 +39,9 @@ function WinChecker(board) {
   let tokenBoard;
 
   const fourInARow = (row, token) => {
+    console.log(tokenBoard[row]);
+    console.log(tokenBoard[row].join(""));
+    console.log(token.repeat(4));
     return tokenBoard[row].join("").includes(token.repeat(4));
   };
 
@@ -113,7 +114,7 @@ function WinChecker(board) {
       .getBoard()
       .map((row) => row.map((cell) => cell.getToken()));
 
-    const row = tokenBoard.map((row) => row[column]).lastIndexOf(null) + 1;
+    const row = tokenBoard.map((row) => row[column]).lastIndexOf(" ") + 1;
 
     winner =
       fourInAColumn(column, token) ||
